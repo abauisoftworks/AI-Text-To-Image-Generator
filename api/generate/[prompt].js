@@ -1,34 +1,20 @@
-import fetch from "node-fetch";
+import Bytez from "bytez.js";
+
+const sdk = new Bytez(process.env.BYTEZ_KEY);
+const model = sdk.model("stabilityai/stable-diffusion-xl-base-1.0");
 
 export default async function handler(req, res) {
   const { prompt } = req.query;
-
-  if (!prompt || prompt.length > 500) {
-    return res.status(400).json({ error: "The Prompt Is Missing Or Too Long" });
-  }
+  if (!prompt) return res.status(400).json({ error: "The Prompt Is Required!" });
 
   try {
-    const apiKey = process.env.BYTEZ_KEY;
+    const { error, output } = await model.run(prompt);
 
-    const response = await fetch("https://api.bytez.com/models/stabilityai/stable-diffusion-xl-base-1.0", {
-      method: "POST",
-      headers: {
-        "Authorization": apiKey,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ prompt, width: 512, height: 512 })
-    });
+    if (error) return res.status(500).json({ error });
 
-    const data = await response.json();
-
-    if (!data.output || !data.output[0] || !data.output[0].url) {
-      return res.status(500).json({ error: "AI Failed To Generate Image" });
-    }
-
-    res.json({ url: data.output[0].url });
-
+    res.status(200).json({ url: output[0] });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server Error" });
+    res.status(500).json({ error: "Failed To Generate The Image." });
   }
 }
