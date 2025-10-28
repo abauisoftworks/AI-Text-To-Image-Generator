@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const { prompt } = req.query;
 
   if (!prompt || prompt.length > 500) {
-    return res.status(400).json({ error: "Prompt missing or too long" });
+    return res.status(400).json({ error: "The Prompt Is Missing Or Too Long" });
   }
 
   try {
@@ -16,15 +16,11 @@ export default async function handler(req, res) {
         "Authorization": apiKey,
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({
-        prompt: prompt,
-        width: 512,
-        height: 512
-      })
+      body: JSON.stringify({ prompt, width: 512, height: 512 })
     });
 
     const data = await response.json();
-    
+
     if (!data.output || !data.output[0] || !data.output[0].url) {
       return res.status(500).json({ error: "AI Failed To Generate Image" });
     }
