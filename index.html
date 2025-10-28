@@ -1,20 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Text-2-Image Generator</title>
-<link rel="stylesheet" href="css-js/style.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Abia-Imagine</title>
+
+  <link rel="stylesheet" href="css-js/style.css">
+
+  <script type="module">
+    import '@material/web/textfield/outlined-text-field.js';
+    import '@material/web/button/filled-button.js';
+    import '@material/web/circular-progress/circular-progress.js';
+  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Abia-Imagine</h1>
-    <input type="text" id="prompt" placeholder="Type your prompt here" maxlength="500">
-    <button id="generateBtn">Generate</button>
-    <div id="status"></div>
-    <div id="result"></div>
-  </div>
-  <script src="css-js/main.js" type="module"></script>
+  <main class="surface">
+    <header class="app-header">
+      <div class="title-group">
+        <h1 class="title">AI Text-2-Image Generator</h1>
+        <p class="subtitle">Free • No Sign Up/Log In</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="controls">
+        <mwc-outlined-text-field id="promptField" label="Required To Enter The Prompt For Generated Image" helper="Keep It Short + Aafe" style="width:100%"></mwc-outlined-text-field>
+        <div class="actions">
+          <mwc-filled-button id="generateBtn" unelevated label="Generate"></mwc-filled-button>
+          <mwc-circular-progress id="spinner" indeterminate density="0" aria-hidden="true"></mwc-circular-progress>
+        </div>
+        <div id="status" class="status" aria-live="polite"></div>
+      </div>
+
+      <div id="preview" class="preview" hidden>
+        <img id="resultImg" alt="Generated Image" />
+      </div>
+    </section>
+
+    <footer class="footer">
+  <md-outlined-button href="https://github.com/abauisoftworks" target="_blank">
+    GitHub
+  </md-outlined-button>
+    </footer>
+  </main>
+
+  <script src="css-js/main.js" defer></script>
 </body>
-</html> 
+</html>
