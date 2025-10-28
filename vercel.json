@@ -1,8 +1,6 @@
 {
+  "version": 2,
   "routes": [
-    {
-      "src": "/api/generate/(.*)",
-      "dest": "/api/generate/[prompt].js"
-    }
+    { "src": "/api/generate/(.*)", "dest": "/api/generate/[prompt].js" }
   ]
 }
