@@ -24,7 +24,7 @@ btn.addEventListener("click", async () => {
     result.appendChild(img);
 
   } catch (e) {
-    status.textContent = "AI Failed To Generate.";
+    status.textContent = "Failed to generate.";
     console.error(e);
   }
 });
